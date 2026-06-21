@@ -1,0 +1,452 @@
+{
+  "item": [
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Indexes",
+      "description": {
+        "content": "Manage Orama Cloud index schema and deployments. Requires the private (write) API key.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1b2c3d4-0001-4000-8000-000000000011",
+          "name": "Update the schema of an index.",
+          "request": {
+            "name": "Update the schema of an index.",
+            "description": {
+              "content": "Update the schema of an Orama Cloud index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{managementBaseUrl}}/api/v1/webhooks/{{indexId}}/update-schema",
+              "path": [
+                "api",
+                "v1",
+                "webhooks",
+                "{{indexId}}",
+                "update-schema"
+              ],
+              "host": [
+                "{{managementBaseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "a1b2c3d4-0001-4000-8000-000000000012",
+          "name": "Check for pending (undeployed) data.",
+          "request": {
+            "name": "Check for pending (undeployed) data.",
+            "description": {
+              "content": "Check whether the index has pending operations awaiting deployment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{managementBaseUrl}}/api/v1/webhooks/{{indexId}}/has-data",
+              "path": [
+                "api",
+                "v1",
+                "webhooks",
+                "{{indexId}}",
+                "has-data"
+              ],
+              "host": [
+                "{{managementBaseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "a1b2c3d4-0001-4000-8000-000000000013",
+          "name": "Empty the index.",
+          "request": {
+            "name": "Empty the index.",
+            "description": {
+              "content": "Remove all documents from the index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{managementBaseUrl}}/api/v1/webhooks/{{indexId}}/empty",
+              "path": [
+                "api",
+                "v1",
+                "webhooks",
+                "{{indexId}}",
+                "empty"
+              ],
+              "host": [
+                "{{managementBaseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "a1b2c3d4-0001-4000-8000-000000000014",
+          "name": "Deploy queued changes.",
+          "request": {
+            "name": "Deploy queued changes.",
+            "description": {
+              "content": "Publish queued changes to the global Orama Cloud network.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{managementBaseUrl}}/api/v1/webhooks/{{indexId}}/deploy",
+              "path": [
+                "api",
+                "v1",
+                "webhooks",
+                "{{indexId}}",
+                "deploy"
+              ],
+              "host": [
+                "{{managementBaseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1b2c3d4-0002-4000-8000-000000000002",
+      "name": "Documents",
+      "description": {
+        "content": "Insert, update, delete, and bulk-replace documents. Requires the private (write) API key.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1b2c3d4-0002-4000-8000-000000000021",
+          "name": "Insert, update, or delete documents (notify).",
+          "request": {
+            "name": "Insert, update, or delete documents (notify).",
+            "description": {
+              "content": "Incrementally insert/update (upsert by id) and delete (remove) documents. Call deploy afterward to publish.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{managementBaseUrl}}/api/v1/webhooks/{{indexId}}/notify",
+              "path": [
+                "api",
+                "v1",
+                "webhooks",
+                "{{indexId}}",
+                "notify"
+              ],
+              "host": [
+                "{{managementBaseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"upsert\": [\n    { \"id\": \"1\", \"title\": \"Example document\" }\n  ],\n  \"remove\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "a1b2c3d4-0002-4000-8000-000000000022",
+          "name": "Bulk-replace all documents (snapshot).",
+          "request": {
+            "name": "Bulk-replace all documents (snapshot).",
+            "description": {
+              "content": "Replace the entire index contents with the provided array of documents. An empty array clears the index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{managementBaseUrl}}/api/v1/webhooks/{{indexId}}/snapshot",
+              "path": [
+                "api",
+                "v1",
+                "webhooks",
+                "{{indexId}}",
+                "snapshot"
+              ],
+              "host": [
+                "{{managementBaseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  { \"id\": \"1\", \"title\": \"Example document\" }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1b2c3d4-0003-4000-8000-000000000003",
+      "name": "Search",
+      "description": {
+        "content": "Run full-text, vector, and hybrid search queries with the public (read) API key.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1b2c3d4-0003-4000-8000-000000000031",
+          "name": "Search an index.",
+          "request": {
+            "name": "Search an index.",
+            "description": {
+              "content": "Run a full-text, vector, or hybrid search. Uses the public (read) API key supplied via the api-key query parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{searchBaseUrl}}/v1/indexes/{{indexId}}/search?api-key={{publicApiKey}}",
+              "path": [
+                "v1",
+                "indexes",
+                "{{indexId}}",
+                "search"
+              ],
+              "host": [
+                "{{searchBaseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "api-key",
+                  "value": "{{publicApiKey}}"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"search query\",\n  \"mode\": \"hybrid\",\n  \"where\": {},\n  \"limit\": 10,\n  \"offset\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1b2c3d4-0004-4000-8000-000000000004",
+      "name": "Answer",
+      "description": {
+        "content": "Generate retrieval-augmented (RAG) answers over an index with the public (read) API key.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1b2c3d4-0004-4000-8000-000000000041",
+          "name": "Generate a RAG answer.",
+          "request": {
+            "name": "Generate a RAG answer.",
+            "description": {
+              "content": "Generate a grounded, conversational (RAG) answer over an index. The response is streamed. Uses the public (read) API key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{answerBaseUrl}}/v1/answer?api-key={{publicApiKey}}",
+              "path": [
+                "v1",
+                "answer"
+              ],
+              "host": [
+                "{{answerBaseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "api-key",
+                  "value": "{{publicApiKey}}"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What is Orama?\",\n  \"conversationId\": \"\",\n  \"messages\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.askorama.ai",
+      "key": "managementBaseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://cloud.orama.run",
+      "key": "searchBaseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://answer.api.orama.com",
+      "key": "answerBaseUrl"
+    },
+    {
+      "type": "string",
+      "value": "your-index-id",
+      "key": "indexId"
+    },
+    {
+      "type": "string",
+      "value": "your-public-api-key",
+      "key": "publicApiKey"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{privateApiKey}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a1b2c3d4-0000-4000-8000-000000000000",
+    "name": "Orama Cloud API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Orama Cloud REST API. Management and ingestion endpoints (api.askorama.ai) use the private (write) API key via Authorization bearer; search (cloud.orama.run) and answer (answer.api.orama.com) endpoints use the public (read) API key via the api-key query parameter.\n\nWebsite: https://orama.com",
+      "type": "text/plain"
+    }
+  }
+}

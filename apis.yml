@@ -1,0 +1,146 @@
+aid: orama
+url: https://raw.githubusercontent.com/api-evangelist/orama/refs/heads/main/apis.yml
+name: Orama
+kind: company
+description: Orama is an open-source, in-memory search engine and RAG pipeline (full-text,
+  vector, and hybrid search in under 2kb) plus Orama Cloud, a hosted REST platform
+  for managing indexes, ingesting documents, running search, and building answer
+  (RAG) experiences. The OSS engine is a JavaScript library; Orama Cloud is the
+  managed API and dashboard layered on top.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Search
+- Vector Search
+- RAG
+- Open Source
+- Search as a Service
+created: '2026-06-21'
+modified: '2026-06-21'
+specificationVersion: '0.19'
+apis:
+- aid: orama:indexes-collections
+  name: Orama Cloud Indexes and Collections
+  tags:
+  - Indexes
+  - Collections
+  - Deployments
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.orama.com/cloud
+  baseURL: https://api.askorama.ai/api/v1
+  properties:
+  - url: https://docs.orama.com/cloud
+    type: Documentation
+  - url: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
+    type: APIReference
+  - url: openapi/orama-openapi.yml
+    type: OpenAPI
+  - url: collections/orama.postman_collection.json
+    type: PostmanCollection
+  - url: collections/orama.opencollection.json
+    type: OpenCollection
+  description: Manage Orama Cloud indexes via the webhook management API - update
+    the index schema, check for pending data, empty an index, and deploy queued
+    changes worldwide. Index, project, and collection creation is performed in the
+    Orama Cloud dashboard; the public API exposes per-index management operations.
+- aid: orama:documents
+  name: Orama Cloud Documents
+  tags:
+  - Documents
+  - Ingestion
+  - Upsert
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
+  baseURL: https://api.askorama.ai/api/v1
+  properties:
+  - url: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
+    type: Documentation
+  - url: openapi/orama-openapi.yml
+    type: OpenAPI
+  - url: collections/orama.postman_collection.json
+    type: PostmanCollection
+  - url: collections/orama.opencollection.json
+    type: OpenCollection
+  description: Insert, update, and delete documents in an Orama Cloud index. The
+    notify endpoint performs incremental upsert (by id) and remove operations; the
+    snapshot endpoint bulk-replaces the entire index. Changes are published with a
+    deploy call.
+- aid: orama:search
+  name: Orama Cloud Search
+  tags:
+  - Search
+  - Full Text
+  - Vector
+  - Hybrid
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.orama.com/cloud/performing-search
+  baseURL: https://cloud.orama.run/v1/indexes
+  properties:
+  - url: https://docs.orama.com/cloud/performing-search
+    type: Documentation
+  - url: openapi/orama-openapi.yml
+    type: OpenAPI
+  - url: collections/orama.postman_collection.json
+    type: PostmanCollection
+  - url: collections/orama.opencollection.json
+    type: OpenCollection
+  description: Run full-text, vector, and hybrid search queries against a deployed
+    Orama Cloud index using a public read API key. Supports term, mode, where
+    filters, limit, offset, threshold, and sortBy parameters.
+- aid: orama:answer-sessions-rag
+  name: Orama Cloud Answer Sessions (RAG)
+  tags:
+  - RAG
+  - Answer Engine
+  - Generative
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.orama.com/cloud/answer-engine
+  baseURL: https://answer.api.orama.com/v1
+  properties:
+  - url: https://docs.orama.com/cloud/answer-engine
+    type: Documentation
+  - url: openapi/orama-openapi.yml
+    type: OpenAPI
+  - url: collections/orama.postman_collection.json
+    type: PostmanCollection
+  - url: collections/orama.opencollection.json
+    type: OpenCollection
+  description: Generate grounded, conversational answers (retrieval-augmented
+    generation) over an Orama Cloud index. The streaming answer endpoint powers the
+    SDK AnswerSession (ask / askStream) with retrieved context and citations.
+- aid: orama:oss-engine
+  name: Orama Open Source Engine
+  tags:
+  - Open Source
+  - Library
+  - In Memory
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.orama.com/open-source
+  baseURL: https://github.com/oramasearch/orama
+  properties:
+  - url: https://docs.orama.com/open-source
+    type: Documentation
+  - url: https://github.com/oramasearch/orama
+    type: SourceCode
+  description: The open-source @orama/orama library (Apache 2.0) - a complete
+    in-memory search engine and RAG pipeline that runs in the browser, on the
+    server, or at the edge in under 2kb. Exposes JavaScript functions (create,
+    insert, remove, search) for full-text, vector, and hybrid search; not an HTTP
+    API.
+common:
+- type: GitHubOrganization
+  url: https://github.com/oramasearch
+- type: LinkedIn
+  url: https://www.linkedin.com/company/askorama
+- type: Website
+  url: https://orama.com
+- type: Documentation
+  url: https://docs.orama.com
+- type: Plans
+  url: plans/orama-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/orama-rate-limits.yml
+- type: FinOps
+  url: finops/orama-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

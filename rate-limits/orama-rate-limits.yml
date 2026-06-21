@@ -1,0 +1,77 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Orama
+providerId: orama
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Search
+- Vector Search
+- RAG
+- Open Source
+- Search as a Service
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Orama Cloud advertises unlimited search queries, unlimited embeddings
+  generation, and unlimited answer sessions across all plans. The primary
+  metered quota is index updates (successful deployments), which is capped per
+  plan - 150 per month on the Free tier, with higher allowances on paid tiers.
+  Additional per-index limits apply to user segments and triggers. Specific
+  per-tier throttling thresholds for write/management endpoints are not
+  published and are not reconciled in this artifact. The open-source engine
+  runs locally and is not rate limited.
+notes: >-
+  Verify current quotas at
+  https://docs.orama.com/cloud/understanding-orama/pricing-limits during
+  reconciliation. Search and answer endpoints authenticate with a public
+  (read) API key via the api-key query parameter; management/ingestion
+  endpoints authenticate with a private (write) API key via the Authorization
+  bearer header.
+sources:
+- https://docs.orama.com/cloud/understanding-orama/pricing-limits
+- https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
+responseCodes:
+  throttled: 429
+limits:
+- name: Search Queries
+  scope: index
+  metric: requests
+  limit: unlimited
+  notes: Unlimited search queries on all plans, including Free.
+- name: Answer Sessions
+  scope: index
+  metric: sessions
+  limit: unlimited
+  notes: Unlimited answer (RAG) sessions and answers on all plans.
+- name: Embeddings Generation
+  scope: account
+  metric: embeddings
+  limit: unlimited
+  notes: Unlimited embeddings generation on all plans.
+- name: Index Updates
+  scope: account
+  metric: deployments
+  limit: 150 per month (Free); higher on paid tiers
+  notes: An index update is one successful deployment; the main metered quota.
+- name: User Segments
+  scope: index
+  metric: segments
+  limit: 5 (Free)
+  notes: Per-index segment cap on the Free tier.
+- name: Triggers
+  scope: index
+  metric: triggers
+  limit: 3 (Free)
+  notes: Per-index trigger cap on the Free tier.
+policies:
+- name: Tiered Limits
+  description: Quotas (index updates, segments, triggers, analytics retention) scale from Free to Pro, Premium, and Enterprise.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

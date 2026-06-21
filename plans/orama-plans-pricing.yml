@@ -1,0 +1,208 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Orama
+providerId: orama
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Search
+- Vector Search
+- RAG
+- Open Source
+- Search as a Service
+- Plans
+description: >-
+  Orama Cloud is offered across Free, Pro, Premium, and Enterprise plans. Every
+  plan - including Free - includes the full feature set (full-text, vector, and
+  hybrid search, the answer engine, and embeddings), with limits that scale by
+  tier. Search queries, embeddings generation, and answer sessions are
+  unlimited on all plans; tiers differ on index-update quota, analytics
+  retention, segments/triggers, and support. The open-source Orama engine is
+  Apache 2.0 and free to self-host; Orama is also free forever for open-source
+  and community projects.
+notes: >-
+  Exact monthly prices for Pro, Premium, and Enterprise are not published on
+  Orama's public pricing page (limits and features are listed; dollar amounts
+  are "contact sales / flat fee"). Verify current prices and limits at
+  https://docs.orama.com/cloud/understanding-orama/pricing-limits during
+  reconciliation. The open-source engine is a self-hosted library, not a
+  metered plan.
+sources:
+- https://orama.com/pricing
+- https://docs.orama.com/cloud/understanding-orama/pricing-limits
+- https://github.com/oramasearch/orama
+plans:
+- id: orama-oss
+  name: Open Source
+  type: free
+  description: >-
+    The self-hosted, open-source @orama/orama engine (Apache 2.0). Full-text,
+    vector, and hybrid search plus a RAG pipeline running in-memory in the
+    browser, on the server, or at the edge. No account or API key required.
+  entries:
+  - label: Self-Hosted Engine
+    name: oss_engine
+    type: flat
+    metric: license
+    limit: -1
+    timeFrame: perpetual
+    geo: global
+    unit: 1
+    price: free (Apache 2.0)
+    userMultiplied: false
+  elements:
+  - name: Full-Text Search
+  - name: Vector Search
+  - name: Hybrid Search
+  - name: Answer / RAG Pipeline
+- id: orama-free
+  name: Free
+  type: free
+  description: >-
+    Free Orama Cloud tier with no credit card required. Full feature set with
+    capped index updates and shorter analytics retention.
+  entries:
+  - label: Search Queries
+    name: search_queries
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: unlimited
+    userMultiplied: false
+  - label: Answer Sessions
+    name: answer_sessions
+    type: usage
+    metric: sessions
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: unlimited
+    userMultiplied: false
+  - label: Index Updates
+    name: index_updates
+    type: usage
+    metric: deployments
+    limit: 150
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Analytics Retention
+    name: analytics_retention
+    type: flat
+    metric: days
+    limit: 60
+    timeFrame: rolling
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Full-Text Search
+  - name: Vector Search
+  - name: Hybrid Search
+  - name: Answer Engine
+  - name: Embeddings Generation
+  - name: Up to 5 User Segments and 3 Triggers per Index
+- id: orama-pro
+  name: Pro
+  type: paid
+  description: >-
+    Paid Orama Cloud tier with higher quotas and extended analytics retention.
+    Pricing is not publicly listed; contact Orama.
+  entries:
+  - label: Search Queries
+    name: search_queries
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: unlimited
+    userMultiplied: false
+  - label: Analytics Retention
+    name: analytics_retention
+    type: flat
+    metric: days
+    limit: 365
+    timeFrame: rolling
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Subscription
+    name: subscription
+    type: flat
+    metric: plan
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: see Orama pricing page
+    userMultiplied: false
+  elements:
+  - name: All Free Features
+  - name: Higher Index-Update Quota
+  - name: 365-Day Analytics Retention
+- id: orama-premium
+  name: Premium
+  type: paid
+  description: >-
+    Higher-tier paid Orama Cloud plan with larger quotas. Pricing is not
+    publicly listed; contact Orama.
+  entries:
+  - label: Analytics Retention
+    name: analytics_retention
+    type: flat
+    metric: days
+    limit: 365
+    timeFrame: rolling
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Subscription
+    name: subscription
+    type: flat
+    metric: plan
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: see Orama pricing page
+    userMultiplied: false
+  elements:
+  - name: All Pro Features
+  - name: Larger Quotas
+- id: orama-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom Enterprise agreements with negotiated quotas, custom analytics
+    retention, dedicated support, and SLAs. Contact Orama sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Quotas
+  - name: Custom Analytics Retention
+  - name: Dedicated Support and SLAs
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

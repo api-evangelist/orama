@@ -1,0 +1,106 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Orama
+providerId: orama
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Search
+- Vector Search
+- RAG
+- Open Source
+- Search as a Service
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Orama spend. Orama Cloud uses a flat-fee, plan-based model
+  (Free, Pro, Premium, Enterprise) rather than per-query metering - search
+  queries, embeddings, and answer sessions are unlimited across plans. The
+  cost-relevant dimensions are the plan tier and its quotas (index updates,
+  analytics retention, segments, triggers). The open-source Orama engine is
+  Apache 2.0 and self-hosted, so its cost is infrastructure (compute/memory)
+  rather than a vendor charge.
+notes: >-
+  Exact Pro/Premium/Enterprise prices are not published; treat them as
+  flat-fee / contact-sales. Verify against the Orama pricing page during
+  reconciliation.
+sources:
+- https://orama.com/pricing
+- https://docs.orama.com/cloud/understanding-orama/pricing-limits
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Orama
+serviceCategory: Analytics
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Orama Cloud
+  ServiceCategory: Analytics
+  ProviderName: Orama
+  PublisherName: Orama
+  InvoiceIssuerName: Orama
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription-Based
+meters:
+- name: plan_subscription
+  description: Flat monthly plan fee for the chosen Orama Cloud tier (Free, Pro, Premium, Enterprise).
+  unit: plan
+  aggregation: max
+  dimensions:
+  - account
+  - plan
+- name: index_updates
+  description: Successful index deployments consumed against the plan's monthly index-update quota.
+  unit: deployments
+  aggregation: sum
+  dimensions:
+  - account
+  - index
+- name: search_queries
+  description: Search queries served (unlimited on all plans; tracked for usage visibility, not billed per query).
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - index
+- name: answer_sessions
+  description: Answer (RAG) sessions served (unlimited on all plans; tracked for usage visibility).
+  unit: sessions
+  aggregation: sum
+  dimensions:
+  - account
+  - index
+- name: oss_self_hosted_compute
+  description: Infrastructure cost (compute/memory) of self-hosting the open-source Orama engine; not an Orama vendor charge.
+  unit: hours
+  aggregation: sum
+  dimensions:
+  - account
+  - environment
+principles:
+- name: Visibility
+  description: Track index-update consumption against plan quota and monitor search/answer usage in the Orama Cloud analytics dashboard.
+- name: Allocation
+  description: Map indexes and API keys to workloads/teams; attribute the flat plan fee to the owning cost center.
+- name: Optimization
+  description: Right-size the plan to actual index-update and retention needs; self-host the OSS engine where managed hosting is unnecessary; batch document changes before deploying to conserve index-update quota.
+- name: Accountability
+  description: Assign an owner per index/project; review plan tier and quota headroom monthly.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

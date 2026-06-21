@@ -1,0 +1,88 @@
+aid: orama
+name: Orama
+review:
+  question: Does Orama expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    Per API Evangelist scope, HTTP Server-Sent Events (SSE) is in-scope for
+    AsyncAPI modeling. Orama Cloud's answer (RAG) endpoint
+    (POST https://answer.api.orama.com/v1/answer) returns a streamed response
+    consumed by the SDK AnswerSession (ask / askStream). No AsyncAPI document
+    was authored in this pass; the streaming answer surface could be modeled as
+    HTTP+SSE on reconciliation. No WebSocket surface exists to model.
+findings:
+  summary: |
+    Orama does not publish a documented public WebSocket API. Orama Cloud is a
+    REST (HTTPS) platform across three host families: index management and
+    document ingestion at https://api.askorama.ai/api/v1/webhooks/{indexId}/...
+    (private write key via Authorization bearer), search at
+    https://cloud.orama.run/v1/indexes/{indexId}/search (public read key via
+    the api-key query parameter), and the answer/RAG engine at
+    https://answer.api.orama.com/v1/answer (public read key, streamed
+    response). The streaming answer endpoint is an HTTP streaming transport
+    driving the SDK AnswerSession, not a WebSocket. The open-source @orama/orama
+    library (Apache 2.0) is an in-memory JavaScript library invoked via function
+    calls (create, insert, remove, search), not an HTTP or WebSocket API.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.askorama.ai/api/v1
+      documented: true
+      note: Index management and document ingestion (webhooks). Private (write) API key via Authorization bearer.
+    - protocol: REST
+      scheme: https
+      baseURL: https://cloud.orama.run/v1/indexes
+      documented: true
+      note: Search host. Public (read) API key via the api-key query parameter.
+    - protocol: REST
+      scheme: https
+      baseURL: https://answer.api.orama.com/v1
+      documented: true
+      note: Answer / RAG host. Streamed HTTP response consumed by the SDK AnswerSession. Public (read) API key.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented for Orama Cloud search, ingestion, or the answer engine as of the review date.
+  endpointsConfirmedRest:
+    - POST https://api.askorama.ai/api/v1/webhooks/{indexId}/update-schema
+    - POST https://api.askorama.ai/api/v1/webhooks/{indexId}/has-data
+    - POST https://api.askorama.ai/api/v1/webhooks/{indexId}/empty
+    - POST https://api.askorama.ai/api/v1/webhooks/{indexId}/notify
+    - POST https://api.askorama.ai/api/v1/webhooks/{indexId}/snapshot
+    - POST https://api.askorama.ai/api/v1/webhooks/{indexId}/deploy
+    - POST https://cloud.orama.run/v1/indexes/{indexId}/search?api-key={PUBLIC_API_KEY}
+    - POST https://answer.api.orama.com/v1/answer?api-key={PUBLIC_API_KEY}
+  ossNote: |
+    The open-source Orama engine (github.com/oramasearch/orama, npm
+    @orama/orama, Apache 2.0) is a ~2kb in-memory search and RAG library for
+    browser/server/edge. It is invoked through JavaScript functions, not HTTP
+    endpoints, and is intentionally not modeled as an API surface in the
+    OpenAPI document - only Orama Cloud is.
+sources:
+  - url: https://docs.orama.com/cloud
+    type: Documentation
+    note: Orama Cloud overview; REST-based platform, no WebSocket mentioned.
+  - url: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
+    type: APIReference
+    note: REST webhook endpoints (notify, snapshot, deploy) for ingestion and index management over HTTPS.
+  - url: https://docs.orama.com/cloud/performing-search
+    type: Documentation
+    note: Search via POST to the per-index search host with the public api-key query parameter; HTTPS REST.
+  - url: https://docs.orama.com/cloud/answer-engine
+    type: Documentation
+    note: Answer engine streams an HTTP response consumed by the SDK AnswerSession; not WebSocket.
+  - url: https://github.com/oramasearch/orama
+    type: SourceCode
+    note: Open-source in-memory engine; function-call API, Apache 2.0; not an HTTP/WebSocket service.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. The only streaming surface is the
+    answer (RAG) endpoint, an HTTP streaming response, which may be modeled as
+    AsyncAPI HTTP+SSE on a future reconciliation pass. The apis.yml catalog
+    documents the Orama Cloud REST surfaces and the open-source engine
+    separately.

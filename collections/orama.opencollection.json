@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orama Cloud API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{privateApiKey}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Indexes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update the schema of an index.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/api/v1/webhooks/{{indexId}}/update-schema",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the schema of an Orama Cloud index. Requires the private (write) API key."
+        },
+        {
+          "info": {
+            "name": "Check for pending (undeployed) data.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/api/v1/webhooks/{{indexId}}/has-data",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Check whether the index has pending operations awaiting deployment."
+        },
+        {
+          "info": {
+            "name": "Empty the index.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/api/v1/webhooks/{{indexId}}/empty",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove all documents from the index."
+        },
+        {
+          "info": {
+            "name": "Deploy queued changes.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/api/v1/webhooks/{{indexId}}/deploy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Publish queued changes to the global Orama Cloud network."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Insert, update, or delete documents (notify).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/api/v1/webhooks/{{indexId}}/notify",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"upsert\": [\n    { \"id\": \"1\", \"title\": \"Example document\" }\n  ],\n  \"remove\": []\n}"
+            }
+          },
+          "docs": "Incrementally insert/update (upsert by id) and delete (remove) documents. Call deploy afterward to publish."
+        },
+        {
+          "info": {
+            "name": "Bulk-replace all documents (snapshot).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/api/v1/webhooks/{{indexId}}/snapshot",
+            "body": {
+              "type": "json",
+              "data": "[\n  { \"id\": \"1\", \"title\": \"Example document\" }\n]"
+            }
+          },
+          "docs": "Replace the entire index contents with the provided array of documents. An empty array clears the index."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search an index.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.orama.run/v1/indexes/{{indexId}}/search?api-key={{publicApiKey}}",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"term\": \"search query\",\n  \"mode\": \"hybrid\",\n  \"where\": {},\n  \"limit\": 10,\n  \"offset\": 0\n}"
+            }
+          },
+          "docs": "Run a full-text, vector, or hybrid search. Uses the public (read) API key supplied via the api-key query parameter."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Answer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a RAG answer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://answer.api.orama.com/v1/answer?api-key={{publicApiKey}}",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"query\": \"What is Orama?\",\n  \"conversationId\": \"\",\n  \"messages\": []\n}"
+            }
+          },
+          "docs": "Generate a grounded, conversational (RAG) answer over an index. The response is streamed. Uses the public (read) API key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
