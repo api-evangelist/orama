@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/orama-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'Private (write) API key sent as `Authorization: Bearer {key}` for management
+    and ingestion endpoints on api.askorama.ai. Search and answer endpoints instead use a public
+    (read) API key supplied via the `api-key` query parameter.'
+  sources:
+  - openapi/orama-openapi.yml

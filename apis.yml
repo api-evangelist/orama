@@ -127,6 +127,10 @@ apis:
     insert, remove, search) for full-text, vector, and hybrid search; not an HTTP
     API.
 common:
+- type: DomainSecurity
+  url: security/orama-domain-security.yml
+- type: Authentication
+  url: authentication/orama-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/oramasearch
 - type: LinkedIn
