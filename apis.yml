@@ -127,6 +127,8 @@ apis:
     insert, remove, search) for full-text, vector, and hybrid search; not an HTTP
     API.
 common:
+- type: AgenticAccess
+  url: agentic-access/orama-agentic-access.yml
 - type: DomainSecurity
   url: security/orama-domain-security.yml
 - type: Authentication
