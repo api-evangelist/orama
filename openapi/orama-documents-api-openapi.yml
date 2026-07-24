@@ -1,0 +1,118 @@
+openapi: 3.0.1
+info:
+  title: Orama Cloud Answer Documents API
+  description: 'Specification of the Orama Cloud REST API. Orama Cloud is the hosted, managed platform built on the open-source Orama search engine. It exposes three host families: a webhook management API for index administration and document ingestion (api.askorama.ai), a per-index search host (cloud.orama.run), and an answer/RAG host (answer.api.orama.com). The open-source @orama/orama library itself is a JavaScript library invoked via function calls and is not modeled here as an HTTP API.'
+  termsOfService: https://orama.com/terms
+  contact:
+    name: Orama Support
+    url: https://orama.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: '1.0'
+servers:
+- url: https://api.askorama.ai
+  description: Index management and document ingestion (webhooks). Private (write) API key.
+- url: https://cloud.orama.run
+  description: Per-index search host. Public (read) API key.
+- url: https://answer.api.orama.com
+  description: Answer engine / RAG host. Public (read) API key.
+security:
+- bearerAuth: []
+tags:
+- name: Documents
+  description: Insert, update, delete, and bulk-replace documents in an index.
+paths:
+  /api/v1/webhooks/{indexId}/notify:
+    post:
+      operationId: notify
+      tags:
+      - Documents
+      summary: Insert, update, or delete documents
+      description: Incrementally modify documents in an index. Provide an `upsert` array to insert or update documents (matched by their `id` field) and/or a `remove` array to delete documents. Call deploy afterward to publish.
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/IndexId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotifyRequest'
+      responses:
+        '200':
+          description: Operation queued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+  /api/v1/webhooks/{indexId}/snapshot:
+    post:
+      operationId: snapshot
+      tags:
+      - Documents
+      summary: Bulk-replace all documents
+      description: Replace the entire contents of the index with the provided array of documents. An empty array clears the index. Call deploy afterward to publish.
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/IndexId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Document'
+      responses:
+        '200':
+          description: Snapshot accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+components:
+  schemas:
+    OperationResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    Document:
+      type: object
+      description: An arbitrary JSON document. Must include an `id` for upsert/remove matching.
+      properties:
+        id:
+          type: string
+      additionalProperties: true
+    NotifyRequest:
+      type: object
+      description: Incremental document changes. At least one of upsert or remove is required.
+      properties:
+        upsert:
+          type: array
+          description: Documents to insert or update (matched by id).
+          items:
+            $ref: '#/components/schemas/Document'
+        remove:
+          type: array
+          description: Document ids (or documents) to delete.
+          items:
+            type: string
+  parameters:
+    IndexId:
+      name: indexId
+      in: path
+      required: true
+      description: The Orama Cloud index identifier.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Private (write) API key sent as `Authorization: Bearer {key}` for management and ingestion endpoints on api.askorama.ai. Search and answer endpoints instead use a public (read) API key supplied via the `api-key` query parameter.'

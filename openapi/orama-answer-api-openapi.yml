@@ -1,0 +1,89 @@
+openapi: 3.0.1
+info:
+  title: Orama Cloud Answer API
+  description: 'Specification of the Orama Cloud REST API. Orama Cloud is the hosted, managed platform built on the open-source Orama search engine. It exposes three host families: a webhook management API for index administration and document ingestion (api.askorama.ai), a per-index search host (cloud.orama.run), and an answer/RAG host (answer.api.orama.com). The open-source @orama/orama library itself is a JavaScript library invoked via function calls and is not modeled here as an HTTP API.'
+  termsOfService: https://orama.com/terms
+  contact:
+    name: Orama Support
+    url: https://orama.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: '1.0'
+servers:
+- url: https://api.askorama.ai
+  description: Index management and document ingestion (webhooks). Private (write) API key.
+- url: https://cloud.orama.run
+  description: Per-index search host. Public (read) API key.
+- url: https://answer.api.orama.com
+  description: Answer engine / RAG host. Public (read) API key.
+security:
+- bearerAuth: []
+tags:
+- name: Answer
+  description: Generate retrieval-augmented (RAG) answers over an index.
+paths:
+  /v1/answer:
+    post:
+      operationId: answer
+      tags:
+      - Answer
+      summary: Generate a RAG answer
+      description: Generate a grounded, conversational answer over an index using retrieval-augmented generation. The response is streamed. The public (read) API key is supplied as the `api-key` query parameter. This endpoint powers the SDK AnswerSession (ask / askStream).
+      servers:
+      - url: https://answer.api.orama.com
+      parameters:
+      - name: api-key
+        in: query
+        required: true
+        description: Public (read) API key for the index.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnswerRequest'
+      responses:
+        '200':
+          description: Streamed answer (text/event-stream).
+          content:
+            text/event-stream:
+              schema:
+                type: string
+components:
+  schemas:
+    AnswerRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: The user question / prompt.
+        conversationId:
+          type: string
+          description: Identifier to maintain conversational state across turns.
+        messages:
+          type: array
+          description: Prior conversation messages for context.
+          items:
+            type: object
+            properties:
+              role:
+                type: string
+                enum:
+                - user
+                - assistant
+                - system
+              content:
+                type: string
+        systemPrompt:
+          type: string
+          description: Optional system prompt to steer the answer.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Private (write) API key sent as `Authorization: Bearer {key}` for management and ingestion endpoints on api.askorama.ai. Search and answer endpoints instead use a public (read) API key supplied via the `api-key` query parameter.'

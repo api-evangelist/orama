@@ -1,0 +1,132 @@
+openapi: 3.0.1
+info:
+  title: Orama Cloud Answer Indexes API
+  description: 'Specification of the Orama Cloud REST API. Orama Cloud is the hosted, managed platform built on the open-source Orama search engine. It exposes three host families: a webhook management API for index administration and document ingestion (api.askorama.ai), a per-index search host (cloud.orama.run), and an answer/RAG host (answer.api.orama.com). The open-source @orama/orama library itself is a JavaScript library invoked via function calls and is not modeled here as an HTTP API.'
+  termsOfService: https://orama.com/terms
+  contact:
+    name: Orama Support
+    url: https://orama.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: '1.0'
+servers:
+- url: https://api.askorama.ai
+  description: Index management and document ingestion (webhooks). Private (write) API key.
+- url: https://cloud.orama.run
+  description: Per-index search host. Public (read) API key.
+- url: https://answer.api.orama.com
+  description: Answer engine / RAG host. Public (read) API key.
+security:
+- bearerAuth: []
+tags:
+- name: Indexes
+  description: Manage Orama Cloud index schema and deployments.
+paths:
+  /api/v1/webhooks/{indexId}/update-schema:
+    post:
+      operationId: updateSchema
+      tags:
+      - Indexes
+      summary: Update index schema
+      description: Update the schema of an Orama Cloud index.
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/IndexId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SchemaUpdate'
+      responses:
+        '200':
+          description: Schema updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+  /api/v1/webhooks/{indexId}/has-data:
+    post:
+      operationId: hasData
+      tags:
+      - Indexes
+      summary: Check for pending data
+      description: Check whether the index has pending (undeployed) operations.
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/IndexId'
+      responses:
+        '200':
+          description: Pending-data status.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hasData:
+                    type: boolean
+  /api/v1/webhooks/{indexId}/empty:
+    post:
+      operationId: emptyIndex
+      tags:
+      - Indexes
+      summary: Empty index
+      description: Remove all documents from the index.
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/IndexId'
+      responses:
+        '200':
+          description: Index emptied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+  /api/v1/webhooks/{indexId}/deploy:
+    post:
+      operationId: deployIndex
+      tags:
+      - Indexes
+      summary: Deploy index
+      description: Publish queued changes to the global Orama Cloud network.
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/IndexId'
+      responses:
+        '200':
+          description: Deployment started/completed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+components:
+  schemas:
+    OperationResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    SchemaUpdate:
+      type: object
+      description: New index schema definition.
+      additionalProperties: true
+  parameters:
+    IndexId:
+      name: indexId
+      in: path
+      required: true
+      description: The Orama Cloud index identifier.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Private (write) API key sent as `Authorization: Bearer {key}` for management and ingestion endpoints on api.askorama.ai. Search and answer endpoints instead use a public (read) API key supplied via the `api-key` query parameter.'

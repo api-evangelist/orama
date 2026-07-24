@@ -1,0 +1,142 @@
+openapi: 3.0.1
+info:
+  title: Orama Cloud Answer Search API
+  description: 'Specification of the Orama Cloud REST API. Orama Cloud is the hosted, managed platform built on the open-source Orama search engine. It exposes three host families: a webhook management API for index administration and document ingestion (api.askorama.ai), a per-index search host (cloud.orama.run), and an answer/RAG host (answer.api.orama.com). The open-source @orama/orama library itself is a JavaScript library invoked via function calls and is not modeled here as an HTTP API.'
+  termsOfService: https://orama.com/terms
+  contact:
+    name: Orama Support
+    url: https://orama.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: '1.0'
+servers:
+- url: https://api.askorama.ai
+  description: Index management and document ingestion (webhooks). Private (write) API key.
+- url: https://cloud.orama.run
+  description: Per-index search host. Public (read) API key.
+- url: https://answer.api.orama.com
+  description: Answer engine / RAG host. Public (read) API key.
+security:
+- bearerAuth: []
+tags:
+- name: Search
+  description: Run full-text, vector, and hybrid search queries.
+paths:
+  /v1/indexes/{indexId}/search:
+    post:
+      operationId: search
+      tags:
+      - Search
+      summary: Search an index
+      description: Run a full-text, vector, or hybrid search against a deployed index. The public (read) API key is supplied as the `api-key` query parameter.
+      servers:
+      - url: https://cloud.orama.run
+      parameters:
+      - $ref: '#/components/parameters/IndexId'
+      - name: api-key
+        in: query
+        required: true
+        description: Public (read) API key for the index.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+      responses:
+        '200':
+          description: Search results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+components:
+  schemas:
+    SearchResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of matching documents.
+        elapsed:
+          type: object
+          properties:
+            raw:
+              type: integer
+            formatted:
+              type: string
+        hits:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              score:
+                type: number
+              document:
+                $ref: '#/components/schemas/Document'
+    SearchRequest:
+      type: object
+      required:
+      - term
+      properties:
+        term:
+          type: string
+          description: The search query string.
+        mode:
+          type: string
+          description: Search mode.
+          enum:
+          - fulltext
+          - vector
+          - hybrid
+          default: fulltext
+        where:
+          type: object
+          description: Filter conditions applied to document properties.
+          additionalProperties: true
+        limit:
+          type: integer
+          description: Maximum number of results to return.
+          default: 10
+        offset:
+          type: integer
+          description: Number of results to skip (pagination).
+          default: 0
+        threshold:
+          type: number
+          description: Relevance threshold controlling how many results are returned.
+        sortBy:
+          type: object
+          properties:
+            property:
+              type: string
+            order:
+              type: string
+              enum:
+              - ASC
+              - DESC
+    Document:
+      type: object
+      description: An arbitrary JSON document. Must include an `id` for upsert/remove matching.
+      properties:
+        id:
+          type: string
+      additionalProperties: true
+  parameters:
+    IndexId:
+      name: indexId
+      in: path
+      required: true
+      description: The Orama Cloud index identifier.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Private (write) API key sent as `Authorization: Bearer {key}` for management and ingestion endpoints on api.askorama.ai. Search and answer endpoints instead use a public (read) API key supplied via the `api-key` query parameter.'
