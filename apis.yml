@@ -7,7 +7,20 @@ description: Orama is an open-source, in-memory search engine and RAG pipeline (
   for managing indexes, ingesting documents, running search, and building answer
   (RAG) experiences. The OSS engine is a JavaScript library; Orama Cloud is the
   managed API and dashboard layered on top.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/orama.png
 tags:
 - Search
 - Vector Search
@@ -18,95 +31,6 @@ created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.19'
 apis:
-- aid: orama:indexes-collections
-  name: Orama Cloud Indexes and Collections
-  tags:
-  - Indexes
-  - Collections
-  - Deployments
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.orama.com/cloud
-  baseURL: https://api.askorama.ai/api/v1
-  properties:
-  - url: https://docs.orama.com/cloud
-    type: Documentation
-  - url: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
-    type: APIReference
-  - url: openapi/orama-openapi.yml
-    type: OpenAPI
-  - url: collections/orama.postman_collection.json
-    type: PostmanCollection
-  - url: collections/orama.opencollection.json
-    type: OpenCollection
-  description: Manage Orama Cloud indexes via the webhook management API - update
-    the index schema, check for pending data, empty an index, and deploy queued
-    changes worldwide. Index, project, and collection creation is performed in the
-    Orama Cloud dashboard; the public API exposes per-index management operations.
-- aid: orama:documents
-  name: Orama Cloud Documents
-  tags:
-  - Documents
-  - Ingestion
-  - Upsert
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
-  baseURL: https://api.askorama.ai/api/v1
-  properties:
-  - url: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
-    type: Documentation
-  - url: openapi/orama-openapi.yml
-    type: OpenAPI
-  - url: collections/orama.postman_collection.json
-    type: PostmanCollection
-  - url: collections/orama.opencollection.json
-    type: OpenCollection
-  description: Insert, update, and delete documents in an Orama Cloud index. The
-    notify endpoint performs incremental upsert (by id) and remove operations; the
-    snapshot endpoint bulk-replaces the entire index. Changes are published with a
-    deploy call.
-- aid: orama:search
-  name: Orama Cloud Search
-  tags:
-  - Search
-  - Full Text
-  - Vector
-  - Hybrid
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.orama.com/cloud/performing-search
-  baseURL: https://cloud.orama.run/v1/indexes
-  properties:
-  - url: https://docs.orama.com/cloud/performing-search
-    type: Documentation
-  - url: openapi/orama-openapi.yml
-    type: OpenAPI
-  - url: collections/orama.postman_collection.json
-    type: PostmanCollection
-  - url: collections/orama.opencollection.json
-    type: OpenCollection
-  description: Run full-text, vector, and hybrid search queries against a deployed
-    Orama Cloud index using a public read API key. Supports term, mode, where
-    filters, limit, offset, threshold, and sortBy parameters.
-- aid: orama:answer-sessions-rag
-  name: Orama Cloud Answer Sessions (RAG)
-  tags:
-  - RAG
-  - Answer Engine
-  - Generative
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.orama.com/cloud/answer-engine
-  baseURL: https://answer.api.orama.com/v1
-  properties:
-  - url: https://docs.orama.com/cloud/answer-engine
-    type: Documentation
-  - url: openapi/orama-openapi.yml
-    type: OpenAPI
-  - url: collections/orama.postman_collection.json
-    type: PostmanCollection
-  - url: collections/orama.opencollection.json
-    type: OpenCollection
-  description: Generate grounded, conversational answers (retrieval-augmented
-    generation) over an Orama Cloud index. The streaming answer endpoint powers the
-    SDK AnswerSession (ask / askStream) with retrieved context and citations.
 - aid: orama:oss-engine
   name: Orama Open Source Engine
   tags:
@@ -121,11 +45,106 @@ apis:
     type: Documentation
   - url: https://github.com/oramasearch/orama
     type: SourceCode
-  description: The open-source @orama/orama library (Apache 2.0) - a complete
-    in-memory search engine and RAG pipeline that runs in the browser, on the
-    server, or at the edge in under 2kb. Exposes JavaScript functions (create,
-    insert, remove, search) for full-text, vector, and hybrid search; not an HTTP
-    API.
+  description: >-
+    The open-source @orama/orama library (Apache 2.0) - a complete in-memory search engine and RAG pipeline
+    that runs in the browser, on the server, or at the edge in under 2kb. Exposes JavaScript functions
+    (create, insert, remove, search) for full-text, vector, and hybrid search; not an HTTP API.
+- aid: orama:orama-answer-api
+  name: Orama Answer API
+  description: Generate retrieval-augmented (RAG) answers over an index.
+  humanURL: https://docs.orama.com/cloud
+  baseURL: https://api.askorama.ai/api/v1
+  tags:
+  - Answer
+  properties:
+  - type: OpenAPI
+    url: openapi/orama-answer-api-openapi.yml
+  - type: Documentation
+    url: https://docs.orama.com/cloud
+  - type: APIReference
+    url: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
+  - type: PostmanCollection
+    url: collections/orama.postman_collection.json
+  - type: OpenCollection
+    url: collections/orama.opencollection.json
+  - type: Documentation
+    url: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
+  - type: Documentation
+    url: https://docs.orama.com/cloud/performing-search
+  - type: Documentation
+    url: https://docs.orama.com/cloud/answer-engine
+- aid: orama:orama-documents-api
+  name: Orama Documents API
+  description: Insert, update, delete, and bulk-replace documents in an index.
+  humanURL: https://docs.orama.com/cloud
+  baseURL: https://api.askorama.ai/api/v1
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/orama-documents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.orama.com/cloud
+  - type: APIReference
+    url: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
+  - type: PostmanCollection
+    url: collections/orama.postman_collection.json
+  - type: OpenCollection
+    url: collections/orama.opencollection.json
+  - type: Documentation
+    url: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
+  - type: Documentation
+    url: https://docs.orama.com/cloud/performing-search
+  - type: Documentation
+    url: https://docs.orama.com/cloud/answer-engine
+- aid: orama:orama-indexes-api
+  name: Orama Indexes API
+  description: Manage Orama Cloud index schema and deployments.
+  humanURL: https://docs.orama.com/cloud
+  baseURL: https://api.askorama.ai/api/v1
+  tags:
+  - Indexes
+  properties:
+  - type: OpenAPI
+    url: openapi/orama-indexes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.orama.com/cloud
+  - type: APIReference
+    url: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
+  - type: PostmanCollection
+    url: collections/orama.postman_collection.json
+  - type: OpenCollection
+    url: collections/orama.opencollection.json
+  - type: Documentation
+    url: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
+  - type: Documentation
+    url: https://docs.orama.com/cloud/performing-search
+  - type: Documentation
+    url: https://docs.orama.com/cloud/answer-engine
+- aid: orama:orama-search-api
+  name: Orama Search API
+  description: Run full-text, vector, and hybrid search queries.
+  humanURL: https://docs.orama.com/cloud
+  baseURL: https://api.askorama.ai/api/v1
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/orama-search-api-openapi.yml
+  - type: Documentation
+    url: https://docs.orama.com/cloud
+  - type: APIReference
+    url: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
+  - type: PostmanCollection
+    url: collections/orama.postman_collection.json
+  - type: OpenCollection
+    url: collections/orama.opencollection.json
+  - type: Documentation
+    url: https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis
+  - type: Documentation
+    url: https://docs.orama.com/cloud/performing-search
+  - type: Documentation
+    url: https://docs.orama.com/cloud/answer-engine
 common:
 - type: AgenticAccess
   url: agentic-access/orama-agentic-access.yml
