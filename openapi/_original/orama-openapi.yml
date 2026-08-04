@@ -1,0 +1,384 @@
+openapi: 3.0.1
+info:
+  title: Orama Cloud API
+  description: >-
+    Specification of the Orama Cloud REST API. Orama Cloud is the hosted,
+    managed platform built on the open-source Orama search engine. It exposes
+    three host families: a webhook management API for index administration and
+    document ingestion (api.askorama.ai), a per-index search host
+    (cloud.orama.run), and an answer/RAG host (answer.api.orama.com). The
+    open-source @orama/orama library itself is a JavaScript library invoked via
+    function calls and is not modeled here as an HTTP API.
+  termsOfService: https://orama.com/terms
+  contact:
+    name: Orama Support
+    url: https://orama.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: '1.0'
+servers:
+  - url: https://api.askorama.ai
+    description: Index management and document ingestion (webhooks). Private (write) API key.
+  - url: https://cloud.orama.run
+    description: Per-index search host. Public (read) API key.
+  - url: https://answer.api.orama.com
+    description: Answer engine / RAG host. Public (read) API key.
+security:
+  - bearerAuth: []
+tags:
+  - name: Indexes
+    description: Manage Orama Cloud index schema and deployments.
+  - name: Documents
+    description: Insert, update, delete, and bulk-replace documents in an index.
+  - name: Search
+    description: Run full-text, vector, and hybrid search queries.
+  - name: Answer
+    description: Generate retrieval-augmented (RAG) answers over an index.
+paths:
+  /api/v1/webhooks/{indexId}/update-schema:
+    post:
+      operationId: updateSchema
+      tags:
+        - Indexes
+      summary: Update index schema
+      description: Update the schema of an Orama Cloud index.
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IndexId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SchemaUpdate'
+      responses:
+        '200':
+          description: Schema updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+  /api/v1/webhooks/{indexId}/has-data:
+    post:
+      operationId: hasData
+      tags:
+        - Indexes
+      summary: Check for pending data
+      description: Check whether the index has pending (undeployed) operations.
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IndexId'
+      responses:
+        '200':
+          description: Pending-data status.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hasData:
+                    type: boolean
+  /api/v1/webhooks/{indexId}/empty:
+    post:
+      operationId: emptyIndex
+      tags:
+        - Indexes
+      summary: Empty index
+      description: Remove all documents from the index.
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IndexId'
+      responses:
+        '200':
+          description: Index emptied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+  /api/v1/webhooks/{indexId}/deploy:
+    post:
+      operationId: deployIndex
+      tags:
+        - Indexes
+      summary: Deploy index
+      description: Publish queued changes to the global Orama Cloud network.
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IndexId'
+      responses:
+        '200':
+          description: Deployment started/completed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+  /api/v1/webhooks/{indexId}/notify:
+    post:
+      operationId: notify
+      tags:
+        - Documents
+      summary: Insert, update, or delete documents
+      description: >-
+        Incrementally modify documents in an index. Provide an `upsert` array to
+        insert or update documents (matched by their `id` field) and/or a
+        `remove` array to delete documents. Call deploy afterward to publish.
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IndexId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotifyRequest'
+      responses:
+        '200':
+          description: Operation queued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+  /api/v1/webhooks/{indexId}/snapshot:
+    post:
+      operationId: snapshot
+      tags:
+        - Documents
+      summary: Bulk-replace all documents
+      description: >-
+        Replace the entire contents of the index with the provided array of
+        documents. An empty array clears the index. Call deploy afterward to
+        publish.
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IndexId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Document'
+      responses:
+        '200':
+          description: Snapshot accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+  /v1/indexes/{indexId}/search:
+    post:
+      operationId: search
+      tags:
+        - Search
+      summary: Search an index
+      description: >-
+        Run a full-text, vector, or hybrid search against a deployed index. The
+        public (read) API key is supplied as the `api-key` query parameter.
+      servers:
+        - url: https://cloud.orama.run
+      parameters:
+        - $ref: '#/components/parameters/IndexId'
+        - name: api-key
+          in: query
+          required: true
+          description: Public (read) API key for the index.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+      responses:
+        '200':
+          description: Search results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+  /v1/answer:
+    post:
+      operationId: answer
+      tags:
+        - Answer
+      summary: Generate a RAG answer
+      description: >-
+        Generate a grounded, conversational answer over an index using
+        retrieval-augmented generation. The response is streamed. The public
+        (read) API key is supplied as the `api-key` query parameter. This
+        endpoint powers the SDK AnswerSession (ask / askStream).
+      servers:
+        - url: https://answer.api.orama.com
+      parameters:
+        - name: api-key
+          in: query
+          required: true
+          description: Public (read) API key for the index.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnswerRequest'
+      responses:
+        '200':
+          description: Streamed answer (text/event-stream).
+          content:
+            text/event-stream:
+              schema:
+                type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Private (write) API key sent as `Authorization: Bearer {key}` for
+        management and ingestion endpoints on api.askorama.ai. Search and answer
+        endpoints instead use a public (read) API key supplied via the `api-key`
+        query parameter.
+  parameters:
+    IndexId:
+      name: indexId
+      in: path
+      required: true
+      description: The Orama Cloud index identifier.
+      schema:
+        type: string
+  schemas:
+    Document:
+      type: object
+      description: An arbitrary JSON document. Must include an `id` for upsert/remove matching.
+      properties:
+        id:
+          type: string
+      additionalProperties: true
+    NotifyRequest:
+      type: object
+      description: Incremental document changes. At least one of upsert or remove is required.
+      properties:
+        upsert:
+          type: array
+          description: Documents to insert or update (matched by id).
+          items:
+            $ref: '#/components/schemas/Document'
+        remove:
+          type: array
+          description: Document ids (or documents) to delete.
+          items:
+            type: string
+    SchemaUpdate:
+      type: object
+      description: New index schema definition.
+      additionalProperties: true
+    OperationResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    SearchRequest:
+      type: object
+      required:
+        - term
+      properties:
+        term:
+          type: string
+          description: The search query string.
+        mode:
+          type: string
+          description: Search mode.
+          enum:
+            - fulltext
+            - vector
+            - hybrid
+          default: fulltext
+        where:
+          type: object
+          description: Filter conditions applied to document properties.
+          additionalProperties: true
+        limit:
+          type: integer
+          description: Maximum number of results to return.
+          default: 10
+        offset:
+          type: integer
+          description: Number of results to skip (pagination).
+          default: 0
+        threshold:
+          type: number
+          description: Relevance threshold controlling how many results are returned.
+        sortBy:
+          type: object
+          properties:
+            property:
+              type: string
+            order:
+              type: string
+              enum:
+                - ASC
+                - DESC
+    SearchResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of matching documents.
+        elapsed:
+          type: object
+          properties:
+            raw:
+              type: integer
+            formatted:
+              type: string
+        hits:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              score:
+                type: number
+              document:
+                $ref: '#/components/schemas/Document'
+    AnswerRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: The user question / prompt.
+        conversationId:
+          type: string
+          description: Identifier to maintain conversational state across turns.
+        messages:
+          type: array
+          description: Prior conversation messages for context.
+          items:
+            type: object
+            properties:
+              role:
+                type: string
+                enum:
+                  - user
+                  - assistant
+                  - system
+              content:
+                type: string
+        systemPrompt:
+          type: string
+          description: Optional system prompt to steer the answer.

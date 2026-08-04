@@ -1,0 +1,20 @@
+{
+  "provider": "orama",
+  "sources": [
+    "orama-answer-api-openapi.yml",
+    "orama-documents-api-openapi.yml",
+    "orama-indexes-api-openapi.yml",
+    "orama-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "orama-answer-api-openapi.yml",
+    "orama-documents-api-openapi.yml",
+    "orama-indexes-api-openapi.yml",
+    "orama-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
