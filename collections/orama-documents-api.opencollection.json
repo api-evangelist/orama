@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orama Cloud Answer Documents API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Insert, update, or delete documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/api/v1/webhooks/:indexId/notify",
+            "params": [
+              {
+                "name": "indexId",
+                "value": "",
+                "type": "path",
+                "description": "The Orama Cloud index identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Incrementally modify documents in an index. Provide an `upsert` array to insert or update documents (matched by their `id` field) and/or a `remove` array to delete documents. Call deploy afterward to publish."
+        },
+        {
+          "info": {
+            "name": "Bulk-replace all documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/api/v1/webhooks/:indexId/snapshot",
+            "params": [
+              {
+                "name": "indexId",
+                "value": "",
+                "type": "path",
+                "description": "The Orama Cloud index identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Replace the entire contents of the index with the provided array of documents. An empty array clears the index. Call deploy afterward to publish."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

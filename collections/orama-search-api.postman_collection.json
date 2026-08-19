@@ -1,0 +1,180 @@
+{
+  "item": [
+    {
+      "id": "805bf4e8-3882-493a-b32f-8f06458fb149",
+      "name": "Search",
+      "description": {
+        "content": "Run full-text, vector, and hybrid search queries.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "14b3c4f2-fde6-4c9c-91ec-f08e2f00c6f9",
+          "name": "Search an index",
+          "request": {
+            "name": "Search an index",
+            "description": {
+              "content": "Run a full-text, vector, or hybrid search against a deployed index. The public (read) API key is supplied as the `api-key` query parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "indexes",
+                ":indexId",
+                "search"
+              ],
+              "host": [
+                "cloud",
+                "orama",
+                "run"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-key",
+                  "value": "<string>",
+                  "description": "(Required) Public (read) API key for the index."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "indexId",
+                  "description": "(Required) The Orama Cloud index identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"<string>\",\n  \"mode\": \"fulltext\",\n  \"where\": {\n    \"key_0\": 3879,\n    \"key_1\": 5434.826880068236\n  },\n  \"limit\": 10,\n  \"offset\": 0,\n  \"threshold\": \"<number>\",\n  \"sortBy\": {\n    \"property\": \"<string>\",\n    \"order\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1f29c178-3852-432d-b073-d93da287409a",
+              "name": "Search results.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "indexes",
+                    ":indexId",
+                    "search"
+                  ],
+                  "host": [
+                    "cloud",
+                    "orama",
+                    "run"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "indexId",
+                      "description": "(Required) The Orama Cloud index identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"term\": \"<string>\",\n  \"mode\": \"fulltext\",\n  \"where\": {\n    \"key_0\": 6702.315547587018\n  },\n  \"limit\": 10,\n  \"offset\": 0,\n  \"threshold\": \"<number>\",\n  \"sortBy\": {\n    \"property\": \"<string>\",\n    \"order\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 3641,\n  \"elapsed\": {\n    \"raw\": 4986,\n    \"formatted\": \"string\"\n  },\n  \"hits\": [\n    {\n      \"id\": \"string\",\n      \"score\": 8062.98807791203,\n      \"document\": {\n        \"id\": \"string\",\n        \"key_0\": false,\n        \"key_1\": 2914.450407828582\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"score\": 3570.2626678191086,\n      \"document\": {\n        \"id\": \"string\",\n        \"key_0\": 2969,\n        \"key_1\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.askorama.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5c2ba3e4-5467-4dd9-b2f0-19e1a925f6c6",
+    "name": "Orama Cloud Answer Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Orama Cloud REST API. Orama Cloud is the hosted, managed platform built on the open-source Orama search engine. It exposes three host families: a webhook management API for index administration and document ingestion (api.askorama.ai), a per-index search host (cloud.orama.run), and an answer/RAG host (answer.api.orama.com). The open-source @orama/orama library itself is a JavaScript library invoked via function calls and is not modeled here as an HTTP API.\n\nContact Support:\n Name: Orama Support",
+      "type": "text/plain"
+    }
+  }
+}

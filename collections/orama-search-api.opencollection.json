@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orama Cloud Answer Search API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search an index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/v1/indexes/:indexId/search",
+            "params": [
+              {
+                "name": "indexId",
+                "value": "",
+                "type": "path",
+                "description": "The Orama Cloud index identifier."
+              },
+              {
+                "name": "api-key",
+                "value": "",
+                "type": "query",
+                "description": "Public (read) API key for the index."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run a full-text, vector, or hybrid search against a deployed index. The public (read) API key is supplied as the `api-key` query parameter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

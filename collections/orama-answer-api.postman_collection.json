@@ -1,0 +1,162 @@
+{
+  "item": [
+    {
+      "id": "a9e7d006-a819-4ff7-95c3-6d8958c4f59f",
+      "name": "Answer",
+      "description": {
+        "content": "Generate retrieval-augmented (RAG) answers over an index.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "efa820ba-1140-42eb-b516-1c045f5b9f33",
+          "name": "Generate a RAG answer",
+          "request": {
+            "name": "Generate a RAG answer",
+            "description": {
+              "content": "Generate a grounded, conversational answer over an index using retrieval-augmented generation. The response is streamed. The public (read) API key is supplied as the `api-key` query parameter. This endpoint powers the SDK AnswerSession (ask / askStream).",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "answer"
+              ],
+              "host": [
+                "answer",
+                "api",
+                "orama",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-key",
+                  "value": "<string>",
+                  "description": "(Required) Public (read) API key for the index."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"conversationId\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"systemPrompt\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "232dbf41-4c52-4517-a28f-2008f9738136",
+              "name": "Streamed answer (text/event-stream).",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "answer"
+                  ],
+                  "host": [
+                    "answer",
+                    "api",
+                    "orama",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"conversationId\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"systemPrompt\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.askorama.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ad9113df-7c20-440c-be69-b5e1061e8288",
+    "name": "Orama Cloud Answer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Orama Cloud REST API. Orama Cloud is the hosted, managed platform built on the open-source Orama search engine. It exposes three host families: a webhook management API for index administration and document ingestion (api.askorama.ai), a per-index search host (cloud.orama.run), and an answer/RAG host (answer.api.orama.com). The open-source @orama/orama library itself is a JavaScript library invoked via function calls and is not modeled here as an HTTP API.\n\nContact Support:\n Name: Orama Support",
+      "type": "text/plain"
+    }
+  }
+}

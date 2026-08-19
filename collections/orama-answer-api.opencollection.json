@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orama Cloud Answer API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Answer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a RAG answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/v1/answer",
+            "params": [
+              {
+                "name": "api-key",
+                "value": "",
+                "type": "query",
+                "description": "Public (read) API key for the index."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a grounded, conversational answer over an index using retrieval-augmented generation. The response is streamed. The public (read) API key is supplied as the `api-key` query parameter. This endpoint powers the SDK AnswerSession (ask / askStream)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

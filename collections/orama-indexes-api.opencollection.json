@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orama Cloud Answer Indexes API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Indexes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update index schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/api/v1/webhooks/:indexId/update-schema",
+            "params": [
+              {
+                "name": "indexId",
+                "value": "",
+                "type": "path",
+                "description": "The Orama Cloud index identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the schema of an Orama Cloud index."
+        },
+        {
+          "info": {
+            "name": "Check for pending data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/api/v1/webhooks/:indexId/has-data",
+            "params": [
+              {
+                "name": "indexId",
+                "value": "",
+                "type": "path",
+                "description": "The Orama Cloud index identifier."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Check whether the index has pending (undeployed) operations."
+        },
+        {
+          "info": {
+            "name": "Empty index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/api/v1/webhooks/:indexId/empty",
+            "params": [
+              {
+                "name": "indexId",
+                "value": "",
+                "type": "path",
+                "description": "The Orama Cloud index identifier."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove all documents from the index."
+        },
+        {
+          "info": {
+            "name": "Deploy index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.askorama.ai/api/v1/webhooks/:indexId/deploy",
+            "params": [
+              {
+                "name": "indexId",
+                "value": "",
+                "type": "path",
+                "description": "The Orama Cloud index identifier."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Publish queued changes to the global Orama Cloud network."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
