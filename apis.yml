@@ -25,6 +25,12 @@ tags:
 - Search
 - Vector Search
 - RAG
+- Open-Source
+- Search as a Service
+tags_raw:
+- Search
+- Vector Search
+- RAG
 - Open Source
 - Search as a Service
 created: '2026-06-21'
@@ -34,6 +40,10 @@ apis:
 - aid: orama:oss-engine
   name: Orama Open Source Engine
   tags:
+  - Open-Source
+  - Library
+  - In-Memory
+  tags_raw:
   - Open Source
   - Library
   - In Memory
@@ -55,6 +65,8 @@ apis:
   humanURL: https://docs.orama.com/cloud
   baseURL: https://api.askorama.ai/api/v1
   tags:
+  - Answers
+  tags_raw:
   - Answer
   properties:
   - type: OpenAPI
