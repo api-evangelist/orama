@@ -7,6 +7,19 @@ description: Orama is an open-source, in-memory search engine and RAG pipeline (
   for managing indexes, ingesting documents, running search, and building answer
   (RAG) experiences. The OSS engine is a JavaScript library; Orama Cloud is the
   managed API and dashboard layered on top.
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
