@@ -55,7 +55,7 @@ apis:
   tags:
   - Open-Source
   - Library
-  - In Memory
+  - In-Memory
   tags_raw:
   - Open Source
   - Library
@@ -78,7 +78,7 @@ apis:
   humanURL: https://docs.orama.com/cloud
   baseURL: https://api.askorama.ai/api/v1
   tags:
-  - Answer
+  - Answers
   tags_raw:
   - Answer
   properties:
