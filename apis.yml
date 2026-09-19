@@ -129,6 +129,8 @@ apis:
   humanURL: https://docs.orama.com/cloud
   baseURL: https://api.askorama.ai/api/v1
   tags:
+  - Index
+  tags_raw:
   - Indexes
   properties:
   - type: OpenAPI
