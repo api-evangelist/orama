@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Orama Cloud Answer Search API
+  title: Orama Cloud Search API
   description: 'Specification of the Orama Cloud REST API. Orama Cloud is the hosted, managed platform built on the open-source Orama search engine. It exposes three host families: a webhook management API for index administration and document ingestion (api.askorama.ai), a per-index search host (cloud.orama.run), and an answer/RAG host (answer.api.orama.com). The open-source @orama/orama library itself is a JavaScript library invoked via function calls and is not modeled here as an HTTP API.'
   termsOfService: https://orama.com/terms
   contact:
@@ -54,31 +54,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/SearchResponse'
 components:
+  parameters:
+    IndexId:
+      name: indexId
+      in: path
+      required: true
+      description: The Orama Cloud index identifier.
+      schema:
+        type: string
   schemas:
-    SearchResponse:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Total number of matching documents.
-        elapsed:
-          type: object
-          properties:
-            raw:
-              type: integer
-            formatted:
-              type: string
-        hits:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              score:
-                type: number
-              document:
-                $ref: '#/components/schemas/Document'
     SearchRequest:
       type: object
       required:
@@ -120,6 +104,30 @@ components:
               enum:
               - ASC
               - DESC
+    SearchResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of matching documents.
+        elapsed:
+          type: object
+          properties:
+            raw:
+              type: integer
+            formatted:
+              type: string
+        hits:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              score:
+                type: number
+              document:
+                $ref: '#/components/schemas/Document'
     Document:
       type: object
       description: An arbitrary JSON document. Must include an `id` for upsert/remove matching.
@@ -127,14 +135,6 @@ components:
         id:
           type: string
       additionalProperties: true
-  parameters:
-    IndexId:
-      name: indexId
-      in: path
-      required: true
-      description: The Orama Cloud index identifier.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

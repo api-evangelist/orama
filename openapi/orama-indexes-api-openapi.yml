@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Orama Cloud Answer Indexes API
+  title: Orama Cloud Indexes API
   description: 'Specification of the Orama Cloud REST API. Orama Cloud is the hosted, managed platform built on the open-source Orama search engine. It exposes three host families: a webhook management API for index administration and document ingestion (api.askorama.ai), a per-index search host (cloud.orama.run), and an answer/RAG host (answer.api.orama.com). The open-source @orama/orama library itself is a JavaScript library invoked via function calls and is not modeled here as an HTTP API.'
   termsOfService: https://orama.com/terms
   contact:
