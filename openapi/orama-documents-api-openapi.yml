@@ -75,6 +75,13 @@ paths:
                 $ref: '#/components/schemas/OperationResult'
 components:
   schemas:
+    Document:
+      type: object
+      description: An arbitrary JSON document. Must include an `id` for upsert/remove matching.
+      properties:
+        id:
+          type: string
+      additionalProperties: true
     OperationResult:
       type: object
       properties:
@@ -96,13 +103,6 @@ components:
           description: Document ids (or documents) to delete.
           items:
             type: string
-    Document:
-      type: object
-      description: An arbitrary JSON document. Must include an `id` for upsert/remove matching.
-      properties:
-        id:
-          type: string
-      additionalProperties: true
   parameters:
     IndexId:
       name: indexId

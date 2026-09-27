@@ -9,6 +9,10 @@ description: Orama is an open-source, in-memory search engine and RAG pipeline (
   managed API and dashboard layered on top.
 deliveryModel:
   model: unknown
+  license_evidence:
+    repo: oramasearch/orama
+    spdx: NOASSERTION
+    stars: 10562
   open_source: unknown
   commercial: true
   callable_host: true
@@ -18,7 +22,7 @@ deliveryModel:
   - openapi
   - pricing
   - repository-unlicensed
-  generated: '2026-08-28'
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -39,7 +43,7 @@ tags:
 - Search
 - Vector Search
 - RAG
-- Open-Source
+- Open Source
 - Search as a Service
 tags_raw:
 - Search
@@ -47,6 +51,7 @@ tags_raw:
 - RAG
 - Open Source
 - Search as a Service
+- Open-Source
 created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.23'
@@ -54,13 +59,14 @@ apis:
 - aid: orama:oss-engine
   name: Orama Open Source Engine
   tags:
-  - Open-Source
+  - Open Source
   - Library
   - In-Memory
   tags_raw:
   - Open Source
   - Library
   - In Memory
+  - Open-Source
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.orama.com/open-source
   baseURL: https://github.com/oramasearch/orama
