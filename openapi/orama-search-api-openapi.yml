@@ -62,30 +62,6 @@ components:
         id:
           type: string
       additionalProperties: true
-    SearchResponse:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Total number of matching documents.
-        elapsed:
-          type: object
-          properties:
-            raw:
-              type: integer
-            formatted:
-              type: string
-        hits:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              score:
-                type: number
-              document:
-                $ref: '#/components/schemas/Document'
     SearchRequest:
       type: object
       required:
@@ -127,6 +103,30 @@ components:
               enum:
               - ASC
               - DESC
+    SearchResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of matching documents.
+        elapsed:
+          type: object
+          properties:
+            raw:
+              type: integer
+            formatted:
+              type: string
+        hits:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              score:
+                type: number
+              document:
+                $ref: '#/components/schemas/Document'
   parameters:
     IndexId:
       name: indexId

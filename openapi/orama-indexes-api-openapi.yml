@@ -105,6 +105,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/OperationResult'
 components:
+  parameters:
+    IndexId:
+      name: indexId
+      in: path
+      required: true
+      description: The Orama Cloud index identifier.
+      schema:
+        type: string
   schemas:
     SchemaUpdate:
       type: object
@@ -117,14 +125,6 @@ components:
           type: boolean
         message:
           type: string
-  parameters:
-    IndexId:
-      name: indexId
-      in: path
-      required: true
-      description: The Orama Cloud index identifier.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
