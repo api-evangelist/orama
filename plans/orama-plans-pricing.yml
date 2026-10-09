@@ -1,3 +1,8 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (dated 2026-06-21 by the file itself), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
+generated: '2026-06-21'
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
@@ -206,3 +211,66 @@ plans:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - seat
+  - subscription
+  units:
+  - negotiated
+  - object
+  - period
+  - request
+  - seat
+  plans:
+  - name: Open Source
+    access: free
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - one-time
+  - name: Free
+    access: free
+    model: hybrid
+    model_how: derived
+    units:
+    - object
+    - other
+    - period
+    - request
+    periods:
+    - month
+    - unbounded
+  - name: Pro
+    access: paid
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    - period
+    - request
+    periods:
+    - month
+    - unbounded
+  - name: Premium
+    access: paid
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    - period
+    periods:
+    - month
+    - unbounded
+  - name: Enterprise
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - year
