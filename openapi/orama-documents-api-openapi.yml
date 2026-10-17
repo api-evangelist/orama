@@ -75,20 +75,6 @@ paths:
                 $ref: '#/components/schemas/OperationResult'
 components:
   schemas:
-    Document:
-      type: object
-      description: An arbitrary JSON document. Must include an `id` for upsert/remove matching.
-      properties:
-        id:
-          type: string
-      additionalProperties: true
-    OperationResult:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
     NotifyRequest:
       type: object
       description: Incremental document changes. At least one of upsert or remove is required.
@@ -103,6 +89,20 @@ components:
           description: Document ids (or documents) to delete.
           items:
             type: string
+    Document:
+      type: object
+      description: An arbitrary JSON document. Must include an `id` for upsert/remove matching.
+      properties:
+        id:
+          type: string
+      additionalProperties: true
+    OperationResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
   parameters:
     IndexId:
       name: indexId
