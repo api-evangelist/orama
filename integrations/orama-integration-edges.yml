@@ -1,0 +1,40 @@
+edges:
+- partner_name: JSR
+  partner: null
+  partner_match: null
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript, JSR)
+  evidence: https://jsr.io/@orama/orama
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: JSR (jsr.io public API JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@orama/orama'
+      version: 2.0.6
+      released: '2024-02-15'
+      released_field: versions.createdAt
+      lapsed: true
+      page: https://jsr.io/@orama/orama
+      github_repository: https://github.com/oramasearch/orama
+      repo_leg: github-org:oramasearch
+      publisher_leg: org:orama
+      matched_by: github-org
+    current: false
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months or archived'
+    detected_by: sweep-jsr-javascript-registry.py
+    detected: '2026-10-23'
+  detected_by: sweep-jsr-javascript-registry.py
+  first_seen: '2026-10-23'
+generated: '2026-10-23'
+method: searched
+source:
+- https://jsr.io/api/packages
+- https://jsr.io/api/scopes
+checked:
+- https://jsr.io/api/packages
+- https://jsr.io/api/scopes
