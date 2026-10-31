@@ -1,4 +1,4 @@
-# Orama (orama)
+# Orama
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,134 +66,122 @@
 
 Orama is an open-source, in-memory search engine and RAG pipeline (full-text, vector, and hybrid search in under 2kb) plus Orama Cloud, a hosted REST platform for managing indexes, ingesting documents, running search, and building answer (RAG) experiences. The OSS engine is a JavaScript library; Orama Cloud is the managed API and dashboard layered on top.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/orama/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/orama/refs/heads/main/apis.yml)
+**Areas:** Search · Vector Search · RAG · Open Source · Search as a Service
 
-## Tags
+## Orama on APIs.io
 
-- Search
-- Vector Search
-- RAG
-- Open Source
-- Search as a Service
+Everything profiled for Orama is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/orama/](https://apis.io/providers/orama/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (5)
 
-- **Created:** 2026-06-21
-- **Modified:** 2026-06-21
+- [Orama Open Source Engine](https://apis.io/apis/orama/oss-engine/) — The open-source @orama/orama library (Apache 2.0) - a complete in-memory search engine and RAG pipeline that runs in the browser, on the server, or at the…
+- [Orama Answer API](https://apis.io/apis/orama/orama-answer-api/) — Generate retrieval-augmented (RAG) answers over an index.
+- [Orama Documents API](https://apis.io/apis/orama/orama-documents-api/) — Insert, update, delete, and bulk-replace documents in an index.
+- [Orama Indexes API](https://apis.io/apis/orama/orama-indexes-api/) — Manage Orama Cloud index schema and deployments.
+- [Orama Search API](https://apis.io/apis/orama/orama-search-api/) — Run full-text, vector, and hybrid search queries.
 
-## APIs
+### Published properties
 
-### Orama Cloud Indexes and Collections
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Manage Orama Cloud indexes via the webhook management API - update the index schema, check for pending data, empty an index, and deploy queued changes worldwide. Index, project, and collection creation is performed in the Orama Cloud dashboard; the public API exposes per-index management operations.
+#### Agentic access (1)
 
-- **Human URL:** [https://docs.orama.com/cloud](https://docs.orama.com/cloud)
-- **Base URL:** `https://api.askorama.ai/api/v1`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Orama Agentic Access](https://apis.io/agentic-access/orama/orama-agentic-access/)
 
-- Indexes
-- Collections
-- Deployments
+#### Collections (5)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://docs.orama.com/cloud)
-- [API Reference](https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis)
-- [OpenAPI](openapi/orama-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orama.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/orama.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Orama Cloud API](https://apis.io/collections/orama/open-orama/)
+- [Orama Cloud Answer API](https://apis.io/collections/orama/open-orama-answer-api/)
+- [Orama Cloud Answer Documents API](https://apis.io/collections/orama/open-orama-documents-api/)
+- [Orama Cloud Answer Indexes API](https://apis.io/collections/orama/open-orama-indexes-api/)
+- [Orama Cloud Answer Search API](https://apis.io/collections/orama/open-orama-search-api/)
 
-### Orama Cloud Documents
+#### Security (2)
 
-Insert, update, and delete documents in an Orama Cloud index. The notify endpoint performs incremental upsert (by id) and remove operations; the snapshot endpoint bulk-replaces the entire index. Changes are published with a deploy call.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis](https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis)
-- **Base URL:** `https://api.askorama.ai/api/v1`
+- [Orama Authentication](https://apis.io/security/orama/orama-authentication/)
+- [Orama Domain Security](https://apis.io/security/orama/orama-domain-security/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Documents
-- Ingestion
-- Upsert
+Published plans, tiers and prices.
 
-#### Properties
+- [Orama Plans Pricing](https://apis.io/plans/orama/orama-plans-pricing/)
 
-- [Documentation](https://docs.orama.com/cloud/data-sources/custom-integrations/rest-apis)
-- [OpenAPI](openapi/orama-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orama.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/orama.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### Orama Cloud Search
+Published request limits.
 
-Run full-text, vector, and hybrid search queries against a deployed Orama Cloud index using a public read API key. Supports term, mode, where filters, limit, offset, threshold, and sortBy parameters.
+- [Orama Rate Limits](https://apis.io/rate-limits/orama/orama-rate-limits/)
 
-- **Human URL:** [https://docs.orama.com/cloud/performing-search](https://docs.orama.com/cloud/performing-search)
-- **Base URL:** `https://cloud.orama.run/v1/indexes`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Search
-- Full Text
-- Vector
-- Hybrid
+- [Orama Finops](https://apis.io/finops/orama/orama-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://docs.orama.com/cloud/performing-search)
-- [OpenAPI](openapi/orama-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orama.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/orama.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### Orama Cloud Answer Sessions (RAG)
-
-Generate grounded, conversational answers (retrieval-augmented generation) over an Orama Cloud index. The streaming answer endpoint powers the SDK AnswerSession (ask / askStream) with retrieved context and citations.
-
-- **Human URL:** [https://docs.orama.com/cloud/answer-engine](https://docs.orama.com/cloud/answer-engine)
-- **Base URL:** `https://answer.api.orama.com/v1`
-
-#### Tags
-
-- RAG
-- Answer Engine
-- Generative
-
-#### Properties
-
-- [Documentation](https://docs.orama.com/cloud/answer-engine)
-- [OpenAPI](openapi/orama-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orama.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/orama.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Orama Open Source Engine
-
-The open-source @orama/orama library (Apache 2.0) - a complete in-memory search engine and RAG pipeline that runs in the browser, on the server, or at the edge in under 2kb. Exposes JavaScript functions (create, insert, remove, search) for full-text, vector, and hybrid search; not an HTTP API.
-
-- **Human URL:** [https://docs.orama.com/open-source](https://docs.orama.com/open-source)
-- **Base URL:** `https://github.com/oramasearch/orama`
-
-#### Tags
-
-- Open Source
-- Library
-- In Memory
-
-#### Properties
-
-- [Documentation](https://docs.orama.com/open-source)
-- [Source Code](https://github.com/oramasearch/orama)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/oramasearch)
-- [LinkedIn](https://www.linkedin.com/company/askorama)
 - [Website](https://orama.com)
 - [Documentation](https://docs.orama.com)
-- [Plans](plans/orama-plans-pricing.yml)
-- [Rate Limits](rate-limits/orama-rate-limits.yml)
-- [Fin Ops](finops/orama-finops.yml)
+- [GitHub](https://github.com/oramasearch)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 25.9** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 47.8 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 22.6 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/orama/](https://apis.io/providers/orama/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Orama: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/orama/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
